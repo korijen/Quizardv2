@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "999973636818",
+    "project_id": "quizard-5fad8",
+    "storage_bucket": "quizard-5fad8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999973636818:android:af0dbeaa42c449b865bb0b",
+        "android_client_info": {
+          "package_name": "com.example.quizard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNuHelDk2jjEVU6nCC5MrpCGa1jzRTQ0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
