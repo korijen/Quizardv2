@@ -75,14 +75,12 @@ public class SignInFragment extends Fragment {
                 String email = editEmail.getText().toString();
                 String pass = editPass.getText().toString();
                 if(!email.isEmpty() && !pass.isEmpty()){
-                    viewModel.signIn(email, pass);
-                    Toast.makeText(getContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
-                    viewModel.getFirebaseUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-                        @Override
-                        public void onChanged(FirebaseUser firebaseUser) {
-                            if(firebaseUser != null){
-                                navController.navigate(R.id.action_signInFragment_to_listFragment);
-                            }
+
+                    viewModel.signIn(email, pass, () -> {
+                        Toast.makeText(getContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = viewModel.getCurrentUser();
+                        if(user !=null){
+                            navController.navigate(R.id.action_signInFragment_to_listFragment);
                         }
                     });
 

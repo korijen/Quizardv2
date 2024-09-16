@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.quizard.Adapter.QuizListAdapter;
 import com.example.quizard.Model.QuizListModel;
 import com.example.quizard.R;
+import com.example.quizard.viewmodel.AuthViewModel;
 import com.example.quizard.viewmodel.QuizListViewModel;
 
 import java.util.List;
@@ -32,6 +35,9 @@ public class ListFragment extends Fragment implements QuizListAdapter.OnItemClic
     private NavController navController;
     private QuizListViewModel viewModel;
     private QuizListAdapter adapter;
+
+    private AuthViewModel authViewModel;
+    private Button btnLogout;
     public ListFragment() {
         // Required empty public constructor
     }
@@ -48,9 +54,12 @@ public class ListFragment extends Fragment implements QuizListAdapter.OnItemClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory
-                .getInstance(getActivity().getApplication())).get(QuizListViewModel.class);
+        viewModel = new ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(QuizListViewModel.class);
+        authViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(AuthViewModel.class);
+
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -58,6 +67,7 @@ public class ListFragment extends Fragment implements QuizListAdapter.OnItemClic
 
         recyclerView = view.findViewById(R.id.listQuizRecyclerView);
         progressBar = view.findViewById(R.id.quizListProgressbar);
+        //btnLogout = view.findViewById(R.id.btnLogout);
         navController = Navigation.findNavController(view);
 
         recyclerView.setHasFixedSize(true);
@@ -84,4 +94,6 @@ public class ListFragment extends Fragment implements QuizListAdapter.OnItemClic
         navController.navigate(action);
 
     }
+
+
 }

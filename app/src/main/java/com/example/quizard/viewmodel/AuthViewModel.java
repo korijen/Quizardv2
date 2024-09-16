@@ -19,7 +19,7 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     public FirebaseUser getCurrentUser() {
-        return currentUser;
+        return repository.getCurrentUser();
     }
 
     public AuthViewModel(@NonNull Application application) {
@@ -34,8 +34,8 @@ public class AuthViewModel extends AndroidViewModel {
         repository.signUp(email, pass);
     }
 
-    public void signIn(String email, String pass){
-        repository.signIn(email, pass);
+    public void signIn(String email, String pass, AuthRepository.SignInCallback callback){
+        repository.signIn(email, pass, callback);
     }
     public void signOut(){
         repository.signOut();

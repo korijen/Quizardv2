@@ -16,6 +16,10 @@ import com.google.rpc.context.AttributeContext;
 
 public class AuthRepository {
 
+    public interface SignInCallback {
+        void execute();
+    }
+
     private Application application;
     private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
     private FirebaseAuth firebaseAuth;
@@ -48,12 +52,14 @@ public class AuthRepository {
         });
     }
 
-    public void signIn(String email, String pass){
-        firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void signIn(String email, String pass, SignInCallback callback){
+        firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     firebaseUserMutableLiveData.postValue((firebaseAuth.getCurrentUser()));
+                    callback.execute();
+
                 }else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -62,7 +68,9 @@ public class AuthRepository {
     }
 
     public void signOut(){
+
         firebaseAuth.signOut();
+
     }
 
 
